@@ -58,7 +58,7 @@ class Media(Base):
     id = Column(Integer, primary_key=True)
     type = Column(String(250), nullable=False)    
     url = Column(String(250), nullable=False) 
-    post_id = Column(String(250), ForeignKey('post.id')) 
+    post_id = Column(String(250), ForeignKey('posts.id')) 
     posts = relationship('Post', back_populates='media')   
 
 
@@ -68,7 +68,7 @@ class Comment(Base):
     id = Column(Integer, primary_key=True)
     comment_text = Column(String(250), nullable=False)            
     author_id = Column(String(250), nullable=False)  
-    post_id = Column(String(250), ForeignKey('post.id'))
+    post_id = Column(String(250), ForeignKey('posts.id'))
     posts = relationship('Post', back_populates='comments')   
 
     def to_dict(self):
