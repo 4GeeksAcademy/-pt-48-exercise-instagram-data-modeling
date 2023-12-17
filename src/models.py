@@ -28,7 +28,7 @@ Base = declarative_base()
 #     def to_dict(self):
 #         return {}
 class User(Base):
-    __tablename__ = 'person'
+    __tablename__ = 'user'
     # Here we define columns for the table person
     # Notice that each column is also a normal Python instance attribute.
     id = Column(Integer, primary_key=True)
@@ -40,21 +40,21 @@ class User(Base):
 class Follower(Base):
     __tablename__ = 'follower'
     id = Column(Integer, primary_key=True)
-    user_from_id = Column(Integer, nullable=False)
-    user_to_id = Column(String(250), nullable=False)    
+    user_from_id = Column(Integer, ForeignKey('user.id'))
+    user_to_id = Column(Integer, ForeignKey('user.id'))    
 
 class Post(Base):
     __tablename__ = 'address'
     id = Column(Integer, primary_key=True)
-    user_id = Column(String, nullable=False)
+    user_id = Column(ForeignKey('user.id'))
  
 class Media(Base):
-    __tablename__ = 'person'
+    __tablename__ = 'media'
     
     id = Column(Integer, primary_key=True)
     type = Column(String(250), nullable=False)    
     url = Column(String(250), nullable=False) 
-    post_id = Column(String(250), nullable=False) 
+    post_id = Column(String(250), ForeignKey('post.id')) 
 
 class Comment(Base):
     __tablename__ = 'comment'
@@ -62,7 +62,7 @@ class Comment(Base):
     id = Column(Integer, primary_key=True)
     comment_text = Column(String(250), nullable=False)            
     author_id = Column(String(250), nullable=False)  
-    post_id = Column(String(250), nullable=False)  
+    post_id = Column(String(250), ForeignKey('post.id'))  
 
     def to_dict(self):
         return {}
